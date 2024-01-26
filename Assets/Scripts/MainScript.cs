@@ -22,7 +22,7 @@ public class MainScript : MonoBehaviour {
     private int currentHangmanSprite = 0;
     private const int TOTAL_HANGMAN_SPRITES = 8;
     private const char PLACEHOLDER = '*';
-    private const string DICT_FILE_NAME = "Dictionary";
+    private const string FILE_NAME = "Hangman";
 
     private Dictionary<string, string> gameDict;
     private string answer, userInput;
@@ -82,7 +82,7 @@ public class MainScript : MonoBehaviour {
 
     private IEnumerator GetByHTTP() {
         Debug.Log(Application.streamingAssetsPath);
-        string URL = Path.Combine(Application.streamingAssetsPath, DICT_FILE_NAME + ".json");
+        string URL = Path.Combine(Application.streamingAssetsPath, FILE_NAME + ".json");
         Debug.Log(URL);
         using(UnityWebRequest www = UnityWebRequest.Get(URL)) {
         	yield return www.SendWebRequest();
@@ -113,7 +113,7 @@ public class MainScript : MonoBehaviour {
     private void GetByBSA() {
         BetterStreamingAssets.Initialize();
 
-        var jsonText = BetterStreamingAssets.ReadAllText(DICT_FILE_NAME + ".json");
+        var jsonText = BetterStreamingAssets.ReadAllText(FILE_NAME + ".json");
         HangmanInfo info = JsonUtility.FromJson<HangmanInfo>(jsonText);
 
         ActionText.text = info.phrase;
